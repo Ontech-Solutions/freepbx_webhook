@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\IvrSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class IvrController extends Controller
 {
@@ -23,9 +24,19 @@ class IvrController extends Controller
 
     public function ivr(Request $request)
     {
+        $phone_number_caller=$request->number;
+        $digit=$request->digit;
+        Log::info('This is from FreePBX', ['request' => json_encode($request)]);
+        Log::info('Caller', ['request' => json_encode($phone_number_caller)]);
+        Log::info('Digit', ['request' => json_encode($digit)]);
         $question_id = $request->question_id;
 
         $language = 1;
+
+
+
+
+
         $case_no = 1;
         $step_no = 0;
         $message_string = "";
@@ -74,10 +85,10 @@ class IvrController extends Controller
                     ]);
 
                     $custom_response = [
-                        "next_question" => "question_3"
+                        "next_question" => "Second_IVR_2_1_Choose_Province_(English)"
                     ];
 
-                    return response()->json($custom_response, 200);
+                    return response()->json(['RESULT' => 'SUCCESS']);
                 }elseif ($case_no == 1 && $step_no == 1 && !empty($user_message)) {
 
                         if ($language == 1) //english
@@ -91,7 +102,7 @@ class IvrController extends Controller
                                 "next_question" => "Second_IVR_2_1_Choose_Province_(English)"
                             ];
 
-                            return response()->json($custom_response, 200);
+                            return response()->json(['RESULT' => 'SUCCESS']);
 
                         } elseif ($language == 2) //nyanja
                         {
@@ -104,7 +115,7 @@ class IvrController extends Controller
                                 "next_question" => "question_3"
                             ];
 
-                            return response()->json($custom_response, 200);
+                            return response()->json(['RESULT' => 'SUCCESS']);
                         } elseif ($language == 3) //bemba
                         {
                             $update_session = IvrSession::where('session_id', $session_id)->update([
@@ -116,7 +127,7 @@ class IvrController extends Controller
                                 "next_question" => "question_3"
                             ];
 
-                            return response()->json($custom_response, 200);
+                            return response()->json(['RESULT' => 'SUCCESS']);
                         } elseif ($language == 4) //tonga
                         {
                             $update_session = IvrSession::where('session_id', $session_id)->update([
@@ -128,7 +139,7 @@ class IvrController extends Controller
                                 "next_question" => "question_3"
                             ];
 
-                            return response()->json($custom_response, 200);
+                            return response()->json(['RESULT' => 'SUCCESS']);
                         } elseif ($language == 5) //kaonde
                         {
                             $update_session = IvrSession::where('session_id', $session_id)->update([
@@ -140,7 +151,7 @@ class IvrController extends Controller
                                 "next_question" => "question_3"
                             ];
 
-                            return response()->json($custom_response, 200);
+                            return response()->json(['RESULT' => 'SUCCESS']);
                         } elseif ($language == 6) //lunda
                         {
                             $update_session = IvrSession::where('session_id', $session_id)->update([
@@ -152,7 +163,7 @@ class IvrController extends Controller
                                 "next_question" => "question_3"
                             ];
 
-                            return response()->json($custom_response, 200);
+                            return response()->json(['RESULT' => 'SUCCESS']);
                         } elseif ($language == 7) //luvale
                         {
                             $update_session = IvrSession::where('session_id', $session_id)->update([
@@ -164,7 +175,7 @@ class IvrController extends Controller
                                 "next_question" => "question_3"
                             ];
 
-                            return response()->json($custom_response, 200);
+                            return response()->json(['RESULT' => 'SUCCESS']);
                         }
                     }
                 break;
